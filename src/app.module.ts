@@ -13,12 +13,13 @@ import { Global } from './graphql/global/entities/global.entity';
 @Module({
   imports: [
     // this config allow use grapqhl  localhost/port/graphiql
-    GraphQLModule.forRoot<MercuriusDriverConfig>({
+   GraphQLModule.forRoot<MercuriusDriverConfig>({
       driver:MercuriusDriver,
-      graphiql: true,
-      autoSchemaFile: true,
+      graphiql: true,      
+      autoSchemaFile: true,  
+      // plugins: [ApolloServerPluginLandingPageLocalDefault()],
      
-    }),
+   }),
 
     TypeOrmModule.forRootAsync({
       imports:[ConfigModule],
@@ -32,7 +33,7 @@ import { Global } from './graphql/global/entities/global.entity';
         database:"app",
         username:ConfigService.get('DB_USERNAME'),
         password:ConfigService.get('DB_PASSWORD'),
-        entities:[Global],
+        entities:['dist/graphql/**/entities/*.entity{.ts,.js}'],        
         synchronize:true,
 
       })
